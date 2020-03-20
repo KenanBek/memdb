@@ -2,9 +2,9 @@
 
 In-memory database with O(1) insert, delete and search.
 
-Note: for now it's not safe for concurrent use.
+**Note** for now it's not safe for concurrent use
 
-## Example
+### Usage
 
 First, we define model to be used. It should implement `memdb.Entry` interface:
 
