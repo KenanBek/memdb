@@ -8,9 +8,9 @@ import (
 
 // User model.
 type User struct {
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	Username  string
+	FirstName string
+	LastName  string
 }
 
 // Key returns unique username of the user.
@@ -20,10 +20,10 @@ func (u *User) Key() string {
 
 // Post model.
 type Post struct {
-	Slug    string `json:"slug"`
-	Author  string `json:"author"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Slug    string
+	Author  string
+	Title   string
+	Content string
 }
 
 // Key returns unique slug of the post.

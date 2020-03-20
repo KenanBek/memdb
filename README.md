@@ -11,9 +11,9 @@ First, we define model to be used. It should implement `memdb.Entry` interface:
 ```Go
 // User model.
 type User struct {
-    Username  string `json:"username"`
-    FirstName string `json:"first_name"`
-    LastName  string `json:"last_name"`
+    Username  string
+    FirstName string
+    LastName  string
 }
 
 // Key returns unique username of the user.
