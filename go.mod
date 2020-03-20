@@ -1,4 +1,4 @@
-module memdb
+module github.com/kenanbek/memdb
 
 go 1.13
 
