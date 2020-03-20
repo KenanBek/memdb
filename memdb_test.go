@@ -44,6 +44,27 @@ func TestNewMemDb(t *testing.T) {
 	assert.NotNil(t, db.GetEntry("user1"))
 }
 
+func TestMemDb_AddEntry(t *testing.T) {
+	user1 := User{
+		Username:  "user1",
+		FirstName: "user1 first name",
+		LastName:  "user1 last name",
+	}
+	post1 := Post{
+		Slug:    "post1",
+		Author:  "user1",
+		Title:   "post1 title",
+		Content: "post1 content",
+	}
+
+	db := NewMemDb()
+	db.AddEntry(&user1)
+	db.AddEntry(&post1)
+
+	assert.NotNil(t, db.GetEntry("user1"))
+	assert.NotNil(t, db.GetEntry("post1"))
+}
+
 func TestMemDb_GetEntry(t *testing.T) {
 	user1 := User{
 		Username:  "user1",
@@ -92,4 +113,39 @@ func TestMemDb_DeleteEntry(t *testing.T) {
 	db.DeleteEntry("user2")
 	entry2 = db.GetEntry("user2")
 	assert.Nil(t, entry2)
+}
+
+func TestMemDb_AddGroupEntry(t *testing.T) {
+	user1 := User{
+		Username:  "user1",
+		FirstName: "user1 first name",
+		LastName:  "user1 last name",
+	}
+	post1 := Post{
+		Slug:    "post1",
+		Author:  "user1",
+		Title:   "post1 title",
+		Content: "post1 content",
+	}
+	post2 := Post{
+		Slug:    "post2",
+		Author:  "user2",
+		Title:   "post2 title",
+		Content: "post2 content",
+	}
+
+	db := NewMemDb()
+	db.AddGroupEntry("users", &user1)
+	db.AddGroupEntry("posts", &post1)
+	db.AddGroupEntry("posts", &post2)
+
+	assert.NotNil(t, db.GetGroupEntry("users", "user1"))
+	assert.NotNil(t, db.GetGroupEntry("posts", "post1"))
+	assert.NotNil(t, db.GetGroupEntry("posts", "post2"))
+
+	assert.Equal(t, "post2 title", db.GetGroupEntry("posts", "post2").(*Post).Title)
+
+	db.DeleteGroupEntry("posts", "post1")
+
+	assert.Nil(t, db.GetGroupEntry("posts", "post1"))
 }
